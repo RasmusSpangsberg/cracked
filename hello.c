@@ -2,7 +2,6 @@
 #include <assert.h>
 #include <stdlib.h>
 
-
 struct Matrix {
     int rows;
     int cols;
@@ -58,6 +57,7 @@ void print_idx_matrix(int i, int j, Matrix* m){
 Matrix* mult_matrix(Matrix* a, Matrix* b){
     assert(a->cols == b->rows);
     Matrix* m = make_matrix(a->rows, b->cols);
+    fill_zero_matrix(m);
 
     for (int k = 0; k < a->rows; k++){
         for (int i = 0; i < b->cols; i++){
@@ -86,8 +86,8 @@ int main(){
     print_matrix(b);
 
     Matrix* c = mult_matrix(a, b);
+    printf("\n");
     print_matrix(c);
-
 
     // TODO is this sufficient? How to check?
     free(a->data);
