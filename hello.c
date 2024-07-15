@@ -23,19 +23,19 @@ Matrix* make_matrix(int n_rows, int n_cols) {
     return matrix;
 }
 
-void fill_matrix(Matrix* m){
+void fill_matrix(Matrix *m){
     for (int i = 0; i < m->rows * m->cols; i++){
         m->data[i] = (double) i;
     }
 }
 
-void fill_zero_matrix(Matrix* m){
+void fill_zero_matrix(Matrix *m){
     for (int i = 0; i < m->rows * m->cols; i++){
         m->data[i] = 0;
     }
 }
 
-void print_matrix(Matrix* m){
+void print_matrix(Matrix *m){
     int numDecimals = 1;
 
     for (int i = 0; i < m->rows; i++){
@@ -54,7 +54,7 @@ void print_idx_matrix(int i, int j, Matrix* m){
     printf("%.*f\n", numDecimals, m->data[idx]);
 }
 
-Matrix* mult_matrix(Matrix* a, Matrix* b){
+Matrix* mult_matrix(Matrix *a, Matrix *b){
     assert(a->cols == b->rows);
     Matrix* m = make_matrix(a->rows, b->cols);
     fill_zero_matrix(m);
@@ -74,6 +74,7 @@ Matrix* mult_matrix(Matrix* a, Matrix* b){
     return m;
 }
 
+/*
 int main(){
     Matrix* a = make_matrix(3, 2);
     Matrix* b = make_matrix(2, 4);
@@ -97,3 +98,4 @@ int main(){
 
     return 0;
 }
+*/
