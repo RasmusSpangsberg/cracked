@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
-//#include <string.h>
+#include "matrix.h"
 
 #pragma pack(push, 1)
 typedef struct {
@@ -48,8 +48,8 @@ void write_tiff_header(FILE *fp, uint32_t width, uint32_t height, uint32_t offse
     fwrite(&next_ifd, 4, 1, fp);
 }
 
-int write_tiff(uint32_t width, uint32_t height) {
-    const size_t image_size = width * height; // 1 byte per pixel (greyscale)
+int write_tiff(Matrix *m) {
+    const size_t image_size = m->cols * m->rows; // 1 byte per pixel (greyscale)
 
     // Allocate memory for image data
     uint8_t *image_data = (uint8_t*)malloc(image_size);
@@ -58,11 +58,8 @@ int write_tiff(uint32_t width, uint32_t height) {
         return 1;
     }
 
-    // Fill image_data with example data (gradient image)
-    for (uint32_t y = 0; y < height; ++y) {
-        for (uint32_t x = 0; x < width; ++x) {
-            image_data[y * width + x] = (uint8_t)((x + y) % 256); // Gradient pattern
-        }
+    for (int i = 0; i < image_size; i++){
+        image_data[i] = m->data[i];
     }
 
     // Open the file for writing
@@ -78,7 +75,7 @@ int write_tiff(uint32_t width, uint32_t height) {
     uint32_t offset_to_image_data = offset_to_ifd + 2 + 9 * 12 + 4;
 
     // Write TIFF header and IFD
-    write_tiff_header(fp, width, height, offset_to_ifd, offset_to_image_data);
+    write_tiff_header(fp, m->cols, m->rows, offset_to_ifd, offset_to_image_data);
 
     // Write image data
     fwrite(image_data, 1, image_size, fp);
@@ -90,6 +87,7 @@ int write_tiff(uint32_t width, uint32_t height) {
     return 0;
 }
 
+/*
 int main(){
     write_tiff(600, 800);
-}
+}*/
