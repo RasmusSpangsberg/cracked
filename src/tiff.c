@@ -86,8 +86,3 @@ int write_tiff(Matrix *m) {
 
     return 0;
 }
-
-/*
-int main(){
-    write_tiff(600, 800);
-}*/

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include "tiff.c"
+#include "tiff.h"
 #include "matrix.h"
 
 // TODO: rename?
