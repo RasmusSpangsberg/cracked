@@ -3,7 +3,6 @@
 #include <stdint.h>
 #include "tiff.c"
 #include "matrix.h"
-#include "matrix.c"
 
 // TODO: rename?
 int bytes2int(unsigned char *buffer, int startIdx){
@@ -66,11 +65,4 @@ void data_parser(char *path){
     print_matrix(m);
     write_tiff(m);
     fclose(file);
-}
-
-int main(){
-    char* images_path = "data/t10k-images.idx3-ubyte";
-    char* labels_path = "data/t10k-labels.idx1-ubyte";
-    
-    data_parser(images_path);
 }

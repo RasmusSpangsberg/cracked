@@ -1,19 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 #include <assert.h>
 #include "matrix.h"
-
-#define DATA_TYPE int
-
-/*
-struct Matrix {
-    int rows;
-    int cols;
-    DATA_TYPE* data;
-};
-typedef struct Matrix Matrix; // TODO idk what this line does, other than make below Matrix* work
-*/
 
 // convert row/col to idx
 int idx_matrix(int row, int col, int totalCols){
@@ -145,36 +133,3 @@ Matrix* convolution(Matrix *input){
     return output;
 }
 
-int main(){
-    Matrix *a = make_matrix(5, 5);
-    Matrix *b = make_matrix(2, 4);
-
-    fill_matrix(a);
-    print_matrix(a);
-    printf("\n");
-
-    Matrix *output = convolution(a);
-    print_matrix(output);
-
-
-    /*
-    fill_matrix(a);
-    print_matrix(a);
-    
-    printf("\n");
-    fill_matrix(b);
-    print_matrix(b);
-
-    Matrix* c = mult_matrix(a, b);
-    printf("\n");
-    print_matrix(c);
-    */
-
-    // TODO is this sufficient? How to check?
-    free(a->data);
-    free(a);
-    free(b->data);
-    free(b);
-
-    return 0;
-}
