@@ -30,7 +30,7 @@ void fill_zero_matrix(Matrix *m){
 }
 
 void print_matrix(Matrix *m){
-    int numDecimals = 1;
+    //int numDecimals = 1;
     for (int i = 0; i < m->rows; i++){
         //printf("[%.*f", numDecimals, m->data[i*m->cols]);
         printf("[");
@@ -56,7 +56,7 @@ void print_matrix(Matrix *m){
 void print_idx_matrix(int i, int j, Matrix* m){
     int numDecimals = 1;
     int idx = idx_matrix(i, j, m->cols);
-    printf("%.*f\n", numDecimals, m->data[idx]);
+    printf("%.*d\n", numDecimals, m->data[idx]);
 }
 
 Matrix* mult_matrix(Matrix *a, Matrix *b){
