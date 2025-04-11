@@ -4,7 +4,7 @@
 #include <assert.h>
 #include "matrix.h"
 
-#define DATA_TYPE uint8_t
+#define DATA_TYPE int
 
 /*
 struct Matrix {
@@ -91,63 +91,70 @@ Matrix* mult_matrix(Matrix *a, Matrix *b){
     return m;
 }
 
-
 Matrix* zero_padding(Matrix *m){
     Matrix *zero_padded = make_matrix(m->rows+2, m->cols+2);
     fill_zero_matrix(zero_padded);
 
     for (int i = 0; i < m->rows; i++){
         for (int j = 0; j < m->cols; j++){
-            int from_idx = idx_matrix(i, j, m->cols);
-            int to_idx = idx_matrix(i+1, j+1, m->cols+2);
-            zero_padded->data[to_idx] = m->data[from_idx];
+            int fromIdx = idx_matrix(i, j, m->cols);
+            int toIdx = idx_matrix(i+1, j+1, m->cols+2);
+            zero_padded->data[toIdx] = m->data[fromIdx];
         }
     }
 
     return zero_padded;
-
 }
 
-void convolve(Matrix *input, Matrix *output, Matrix *kernel, int i, int j){
+int convolve(Matrix *input, Matrix *output, Matrix *kernel, int i, int j){
     assert(kernel->rows == kernel->cols);
     int size = kernel->rows;
-    int kernel_stretch = (size - 1) / 2;
+    int kernelStretch = (size - 1) / 2;
     int outputVal = 0;
 
-    int kernel_idx = 0;
-    for (int k = -kernel_stretch; k <= kernel_stretch; k++){
-        for (int l = -kernel_stretch; l <= kernel_stretch; l++){
-            int input_idx = idx_matrix(i+k, j+l, input->cols);
-            outputVal += input->data[input_idx] * kernel->data[kernel_idx];
-            kernel_idx++;
+    int kernelIdx = 0;
+    for (int k = -kernelStretch; k <= kernelStretch; k++){
+        for (int l = -kernelStretch; l <= kernelStretch; l++){
+            int inputIdx = idx_matrix(i+k, j+l, input->cols);
+            outputVal += input->data[inputIdx] * kernel->data[kernelIdx];
+            kernelIdx++;
         }
     }
+
+    return outputVal;
 }
 
-Matrix convolution(Matrix *input){
+Matrix* convolution(Matrix *input){
+    // make kernel
     int size = 3;
     Matrix *kernel = make_matrix(size, size);
     fill_matrix(kernel);
 
     Matrix *output = make_matrix(input->rows, input->cols);
+    //fill_zero_matrix(output);
     input = zero_padding(input);
 
     for (int i = 1; i < input->rows-1; i++){
         for (int j = 1; j < input->cols-1; j++){
-            convolve(input, output, kernel, i, j);
+            int outputIdx = idx_matrix(i-1, j-1, output->cols);
+            int convolveOut = convolve(input, output, kernel, i, j);
+            output->data[outputIdx] = convolveOut;
         }
     }
+
+    return output;
 }
 
 int main(){
-    Matrix* a = make_matrix(5, 5);
-    Matrix* b = make_matrix(2, 4);
+    Matrix *a = make_matrix(5, 5);
+    Matrix *b = make_matrix(2, 4);
 
     fill_matrix(a);
     print_matrix(a);
     printf("\n");
 
-    convolution(a);
+    Matrix *output = convolution(a);
+    print_matrix(output);
 
 
     /*
