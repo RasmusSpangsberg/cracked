@@ -13,20 +13,6 @@ int main(){
     Matrix *output = convolution(a);
     print_matrix(output);
 
-
-    /*
-    fill_matrix(a);
-    print_matrix(a);
-    
-    printf("\n");
-    fill_matrix(b);
-    print_matrix(b);
-
-    Matrix* c = mult_matrix(a, b);
-    printf("\n");
-    print_matrix(c);
-    */
-
     // TODO is this sufficient? How to check?
     free(a->data);
     free(a);
