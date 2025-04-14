@@ -17,13 +17,25 @@ class Net(nn.Module):
         x = self.fc2(x)
         return F.log_softmax(x)
 */
-//#include "matrix.h"
-#include "matrix.c"
+
+#include "matrix.h"
 
 
 void init_model(){
-
+    // 1. what type of weight initialization? (actually, i'd really like to implement
+    // a few different ones and test their performance on MNIST)
+    // 2. what is diff between conv2d network and just a 2d convolution?
 }
+
+
+void xavier_init(){}
+
+void he_init(){
+    // this should work better with ReLU activations than xavier initialization
+}
+
+void lecun_init(){}
+void glorot_init(){}
 
 int predict(Matrix *m){
     
