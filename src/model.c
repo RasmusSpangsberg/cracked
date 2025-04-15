@@ -18,29 +18,51 @@ class Net(nn.Module):
         return F.log_softmax(x)
 */
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
 #include "matrix.h"
-
 
 void init_model(){
     // 1. what type of weight initialization? (actually, i'd really like to implement
     // a few different ones and test their performance on MNIST)
     // 2. what is diff between conv2d network and just a 2d convolution?
+
+    // maybe start with a simple feed forward network?
 }
 
+// TODO how to sample from distribution
+void sample_from_normal_distribution(){
+    srand(time(NULL));
+    
+    for (int i = 0; i < 5; i++){
+        int r = rand() % 100;
+        printf("%i\n", r);
+    }
 
-void xavier_init(){}
+    // TODO sample
+}
 
-void he_init(){
+void zero_init(Matrix *m){
+    fill_zero_matrix(m);
+}
+
+void lecun_init(Matrix *m){
+    // sample each entry independently from a distribution with 0 mean and variance 1/n_{l-1}
+}
+
+void xavier_init(Matrix *m){
+    // or Glorot initialization
+
+}
+
+void he_init(Matrix *m){
+    // or Kaiming initialization
     // this should work better with ReLU activations than xavier initialization
 }
 
-void lecun_init(){}
-void glorot_init(){}
+void glorot_init(Matrix *m){}
 
 int predict(Matrix *m){
     
-}
-
-int main(){
-
 }

@@ -1,0 +1,1 @@
+void sample_from_normal_distribution();
