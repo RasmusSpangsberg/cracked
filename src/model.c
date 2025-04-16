@@ -21,6 +21,7 @@ class Net(nn.Module):
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <math.h>
 #include "matrix.h"
 
 void init_model(){
@@ -29,6 +30,18 @@ void init_model(){
     // 2. what is diff between conv2d network and just a 2d convolution?
 
     // maybe start with a simple feed forward network?
+}
+
+
+// https://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform
+// TODO call sample_from_norm_distr and say using box-muller trans
+void box_muller_transform(){
+    srand(time(NULL));
+    float u1 = (float)rand() / RAND_MAX;
+    float u2 = (float)rand() / RAND_MAX;
+
+    float z1 = sqrt(-2 * log(u1)) * cos(2 * 3.14 * u2);
+    float z2 = sqrt(-2 * log(u1)) * sin(2 * 3.14 * u2);
 }
 
 // TODO how to sample from distribution
